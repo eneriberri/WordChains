@@ -41,24 +41,23 @@ class WordChain
   def find_chain(start_word, end_word)
     current_words << start_word
     visited_words[start_word] = nil
+    
     while !current_words.empty?
       the_word = current_words.shift
-      #puts "the word is #{the_word}"
-      new_words = adjacent_words(the_word)
-      new_words.each do |word|
+      adjacent_words(the_word).each do |word|
+        
         if !visited_words.include?(word) && !current_words.include?(word)
           current_words << word
           visited_words[word] = the_word
-          if word == end_word
-            return build_chain(end_word)
-          end
+          
+          return build_chain(end_word) if word == end_word
         end
-      end
+      end 
     end
+    
   end
 
   def build_chain(end_word)
-    puts "hello"
     chain = [end_word]
     next_word = visited_words[end_word]
     while next_word
@@ -71,7 +70,5 @@ class WordChain
 end
 
 
-chain = WordChain.new
-#p chain.adjacent_words("duck")
-#puts chain.find_chain("hi", "an")
-puts chain.find_chain("duck", "ruby")
+# chain = WordChain.new
+# puts chain.find_chain("duck", "ruby")
